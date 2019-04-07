@@ -14,6 +14,7 @@ var app = (function () {
         var ctx = canvas.getContext("2d");
         ctx.beginPath();
         ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI);
+        //ctx.arc(point.x, point.y);
         ctx.stroke();
     };
     
@@ -24,7 +25,7 @@ var app = (function () {
         return {
             x: evt.clientX - rect.left,
             y: evt.clientY - rect.top
-        };
+        };                         
     };
 
 
@@ -38,18 +39,29 @@ var app = (function () {
             console.log('Connected: ' + frame);
             stompClient.subscribe('/topic/newpoint', function (eventbody) {
                 var puntoJSON =  JSON.parse(eventbody.body);
-                mostrar(theObject, callback);
+                //var callback = mostrarMensaje;
+                var callback = addPointToCanvas;
+                mostrar(puntoJSON, callback);
             });
         });
     };
 
-    function mostrar(theObject, callback){
-        callback(theObject);
+    function mostrar(puntoJSON, callback){
+        callback(puntoJSON);
     }
     
     function mostrarMensaje(puntoJSON){
-        alert("Coordenada X: " + puntoJSON.x + "Coordenada Y: "+ puntoJSON.y);
-    }    
+        alert("Coordenada X: " + puntoJSON.x + ", Coordenada Y: "+ puntoJSON.y);
+    }   
+    
+    function printMousePos(event) {
+        var px = getMousePosition(event).x;
+        var py = getMousePosition(event).y;
+        var pt=new Point(px, py);
+        stompClient.send("/topic/newpoint", {}, JSON.stringify(pt));
+    }
+      
+    document.addEventListener("click", printMousePos);
 
     return {
 
