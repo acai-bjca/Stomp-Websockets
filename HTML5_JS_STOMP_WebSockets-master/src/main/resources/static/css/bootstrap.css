@@ -3329,6 +3329,7 @@ input[type="button"].btn-block {
     text-decoration: none; }
 
 .navbar-nav {
+  text-align: center;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

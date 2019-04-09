@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Colorlib Wordify &mdash; Minimal Blog Template</title>
+    <title>Dibujo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,7 +28,8 @@
     <!-- Theme Style -->
     <link rel="stylesheet" href="css/style.css">
   </head>
-  <body onload="app.init()">   
+  <!--<body onload="app.init()"> Se usaba para que se conectara automáticamente, ahora se hace por medio de un botón-->
+  <body>
     <div class="wrap">
       <header role="banner">
         <div class="top-bar">
@@ -53,11 +54,20 @@
         </div>
         
         <nav class="navbar navbar-expand-md  navbar-light bg-light">
-          <div class="container">           
-            <div class="collapse navbar-collapse" id="navbarMenu">              
+          <div class="container" style="text-align: center;">
+            <div class="collapse navbar-collapse" id="navbarMenu" style="text-align: center;">
+              Id Dibujo: <input id="id" type="number"/> 
+              <button onclick="app.connectTopic()">Conectarse</button><br
+            </div>
+          </div>
+        </nav><br>
+
+        <nav class="navbar navbar-expand-md  navbar-light bg-light">
+          <div class="container" style="text-align: center;">
+            <div class="collapse navbar-collapse" id="navbarMenu" style="text-align: center;">         
               X:<input id="x" type="number"/>
-              Y:<input id="y" type="number"/>        
-          <button onclick="app.publishPoint($('#x').val(),$('#y').val())">Send point</button>
+              Y:<input id="y" type="number"/>
+              <button onclick="app.publishPoint($('#x').val(),$('#y').val())">Send point</button>
             </div>
           </div>
         </nav>

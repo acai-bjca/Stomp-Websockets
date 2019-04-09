@@ -44,6 +44,17 @@ var app = (function () {
                 mostrar(puntoJSON, callback);
             });
         });
+
+        stompClient.connect({}, function (frame) {            
+            console.log('Connected: ' + frame);
+            var id = document.getElementById("id").value;     
+            stompClient.subscribe('/topic/newpoint/'+id, function (eventbody) {
+                var puntoJSON =  JSON.parse(eventbody.body);
+                //var callback = mostrarMensaje;
+                var callback = addPointToCanvas;
+                mostrar(puntoJSON, callback);
+            });            
+        });
     };
 
     function mostrar(puntoJSON, callback){
@@ -58,13 +69,14 @@ var app = (function () {
         var px = getMousePosition(event).x;
         var py = getMousePosition(event).y;
         var pt=new Point(px, py);
+        var id = document.getElementById("id").value;
         stompClient.send("/topic/newpoint", {}, JSON.stringify(pt));
+        stompClient.send("/topic/newpoint/"+id, {}, JSON.stringify(pt));
     }
       
     document.addEventListener("click", printMousePos);
 
     return {
-
         init: function () {
             var can = document.getElementById("canvas");            
             //websocket connection
@@ -75,8 +87,9 @@ var app = (function () {
             var pt=new Point(px,py);
             console.info("publishing point at "+pt);
             addPointToCanvas(pt);
+            var id = document.getElementById("id").value;
             stompClient.send("/topic/newpoint", {}, JSON.stringify(pt));
-            
+            stompClient.send("/topic/newpoint/"+id, {}, JSON.stringify(pt));
         },
 
         disconnect: function () {
@@ -85,6 +98,10 @@ var app = (function () {
             }
             setConnected(false);
             console.log("Disconnected");
+        },
+
+        connectTopic: function(){
+            connectAndSubscribe();
         }
     };
 
