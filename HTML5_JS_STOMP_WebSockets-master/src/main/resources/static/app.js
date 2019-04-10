@@ -48,7 +48,7 @@ var app = (function () {
         stompClient.connect({}, function (frame) {            
             console.log('Connected: ' + frame);
             var id = document.getElementById("id").value;     
-            stompClient.subscribe('/topic/newpoint/'+id, function (eventbody) {
+            stompClient.subscribe('/topic/newpoint.'+id, function (eventbody) {
                 var puntoJSON =  JSON.parse(eventbody.body);
                 //var callback = mostrarMensaje;
                 var callback = addPointToCanvas;
@@ -71,7 +71,7 @@ var app = (function () {
         var pt=new Point(px, py);
         var id = document.getElementById("id").value;
         stompClient.send("/topic/newpoint", {}, JSON.stringify(pt));
-        stompClient.send("/topic/newpoint/"+id, {}, JSON.stringify(pt));
+        stompClient.send("/topic/newpoint."+id, {}, JSON.stringify(pt));
     }
       
     document.addEventListener("click", printMousePos);
@@ -89,7 +89,7 @@ var app = (function () {
             addPointToCanvas(pt);
             var id = document.getElementById("id").value;
             stompClient.send("/topic/newpoint", {}, JSON.stringify(pt));
-            stompClient.send("/topic/newpoint/"+id, {}, JSON.stringify(pt));
+            stompClient.send("/topic/newpoint."+id, {}, JSON.stringify(pt));
         },
 
         disconnect: function () {
