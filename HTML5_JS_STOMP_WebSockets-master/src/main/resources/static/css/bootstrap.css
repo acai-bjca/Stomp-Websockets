@@ -3413,7 +3413,7 @@ input[type="button"].btn-block {
       -ms-flex-wrap: nowrap;
       flex-wrap: nowrap; }
     .navbar-expand-sm .navbar-collapse {
-      display: -webkit-box !important;
+      /*display: -webkit-box !important;*/
       display: -ms-flexbox !important;
       display: flex !important;
       -ms-flex-preferred-size: auto;
@@ -3451,7 +3451,7 @@ input[type="button"].btn-block {
       -ms-flex-wrap: nowrap;
       flex-wrap: nowrap; }
     .navbar-expand-md .navbar-collapse {
-      display: -webkit-box !important;
+      /*display: -webkit-box !important;*/
       display: -ms-flexbox !important;
       display: flex !important;
       -ms-flex-preferred-size: auto;
@@ -3489,7 +3489,7 @@ input[type="button"].btn-block {
       -ms-flex-wrap: nowrap;
       flex-wrap: nowrap; }
     .navbar-expand-lg .navbar-collapse {
-      display: -webkit-box !important;
+      /*display: -webkit-box !important;*/
       display: -ms-flexbox !important;
       display: flex !important;
       -ms-flex-preferred-size: auto;

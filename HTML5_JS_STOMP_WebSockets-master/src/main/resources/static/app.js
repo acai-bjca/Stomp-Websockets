@@ -13,7 +13,7 @@ var app = (function () {
         var canvas = document.getElementById("canvas");
         var ctx = canvas.getContext("2d");
         ctx.beginPath();
-        ctx.arc(point.x, point.y, 3, 0, 2 * Math.PI);
+        ctx.arc(point.x, point.y, 2, 0, 2 * Math.PI);
         //ctx.arc(point.x, point.y);
         ctx.stroke();
     };
@@ -22,6 +22,7 @@ var app = (function () {
         var canvas = document.getElementById("canvas");
         var ctx = canvas.getContext("2d");
         ctx.beginPath();
+        ctx.fillStyle = '#A929E1';
         ctx.moveTo(points[0].x, points[0].y);
         for( item=1 ; item < points.length; item+=1 ){
             ctx.lineTo(points[item].x , points[item].y );
@@ -64,16 +65,14 @@ var app = (function () {
                 //var callback = mostrarMensaje;
                 var callback = addPointToCanvas;
                 mostrar(puntoObj, callback);
-            });            
-        });
-        
-        stompClient.connect({}, function (frame) {            
+            });
+            
             console.log('Connected: ' + frame);                 
             stompClient.subscribe('/topic/newpolygon.'+id, function (eventbody) {                
                 var poligonoObj =  JSON.parse(eventbody.body); //convertir json en obj           
                 var callback = addPolygonToCanvas;
                 mostrar(poligonoObj, callback);
-            });    
+            });
         });
     };
 

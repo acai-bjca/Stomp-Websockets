@@ -1,38 +1,93 @@
-<!DOCTYPE html>
-<!--
-Copyright (C) 2016 Pivotal Software, Inc.
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Dibujo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/app.js"></script>
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300, 400,700|Inconsolata:400,700" rel="stylesheet">
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
--->
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script src="/webjars/jquery/jquery.min.js"></script>
-        <script src="/webjars/sockjs-client/sockjs.min.js"></script>
-        <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-        <script src="/app.js"></script>
+    <link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
+    <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
 
-    </head>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/jquery-migrate-3.0.0.js"></script>   
+    <script src="js/bootstrap.min.js"></script>        
+    <script src="js/main.js"></script>
 
+    <!-- Theme Style -->
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <!--<body onload="app.init()"> Se usaba para que se conectara automáticamente, ahora se hace por medio de un botón-->
+  <body>
+    <div class="wrap">
+      <header role="banner">
+        <div class="top-bar">
+          <div class="container">
+            <div class="row">
+              <div class="col-9 social">
+              </div>
+              <div class="col-3 search-top" style="height: 40px;">               
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="container logo-wrap">
+          <div class="row pt-5">
+            <div class="col-12 text-center">
+              <a class="absolute-toggle d-block d-md-none" data-toggle="collapse" href="#navbarMenu" role="button" aria-expanded="false" aria-controls="navbarMenu"><span class="burger-lines"></span></a>
+              <h1 class="site-logo"><a href="index.html">Dibujo</a></h1>
+            </div>
+          </div>
+        </div>
+        
+        <nav class="navbar navbar-expand-md  navbar-light bg-light" style="display: block;" >
+          <div class="container" style="text-align: center;">
+            <div class="collapse navbar-collapse" id="navbarMenu" style="text-align: center; ">
+              Id Dibujo: <input id="id" type="number"/> 
+              <button onclick="app.connectTopic()">Conectarse</button><br
+            </div>
+          </div>
+        </nav><br>
+
+        <nav class="navbar navbar-expand-md  navbar-light bg-light" style="display: block !important;">
+          <div class="container" style="text-align: center;">
+            <div class="collapse navbar-collapse" id="navbarMenu" style="text-align: center;">         
+              X:<input id="x" type="number"/>
+              Y:<input id="y" type="number"/>
+              <button onclick="app.publishPoint($('#x').val(),$('#y').val())">Send point</button>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <!-- END header -->
+
+      <section class="site-section pt-5 pb-5">
+        <div class="container" style="text-align: center;">
+          <div class="row">
+            <div class="col-md-12">
+              <canvas id="canvas" width="800" height="600" style="border:1px solid #000000;"></canvas>       
+            </div>
+          </div>          
+        </div>
+
+      </section>      
+    </div>
+    
+    <!-- loader -->
+    <div id="loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#f4b214"/></svg></div>
 
     
-    <body onload="app.init()">
-        X:<input id="x" type="number"/>
-        Y:<input id="y" type="number"/>        
-        <button onclick="app.publishPoint($('#x').val(),$('#y').val())">Send point</button>
-        <canvas id="canvas" width="800" height="600"></canvas>
-    </body>
+  </body>
 </html>
